@@ -18,7 +18,6 @@ class Details extends Component {
     }
 
     componentWillReceiveProps(newProps){
-        // console.log('staterepo',this.state.repo)
         if(newProps && this.state.repo !== newProps.params.id){
             this.state.repo = newProps.params.id
             this.props.getDetails(this.state.repo)

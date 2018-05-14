@@ -24,7 +24,6 @@ class DetailsCommits extends Component {
         const renderRows = () => {
             let i = 1
             const commits = this.props.details.commits || []
-            console.log('commits', commits)
             return commits.map(res => (
                 <li key={res.sha+i} className="list-group-item text-muted">
                     <span className="badge badge-info mr-1 badge-pill">{i++}</span><br/>
