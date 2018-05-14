@@ -1,15 +1,25 @@
 import axios from 'axios'
 
-const URL = 'http://api.github.com/search/repositories?q=user:globocom&sort=stars&order=desc'
-const header = {
-        "Authorization": "Basic cm9kem1hbjpkaWdhbzQ3Njk=",
-        "Cache-Control": "no-cache",
-        "Postman-Token": "7747426d-730d-41c0-959b-a0636230a4ab"
-      }
-
 export const search = () => {
     return dispatch => {
-        axios.get(URL, {Headers:header})
-            .then(resp => dispatch({type: 'REPO_LOADED', payload: resp.data}))
+        let response = []
+        const getData = (page = 1, per_page = 100) => {
+            axios({
+                method: 'get',
+                url: `https://api.github.com/search/repositories?q=user:globocom&sort=stars&order=desc&page=${page}&per_page=${per_page}`,
+                headers: {
+                    "Authorization": "Basic cm9kem1hbjpkaWdhbzQ3Njk=",
+                }
+            }).then(resp => {
+                        response = response.concat(resp.data.items)
+                        const count = resp.data.total_count/100
+                        if(page <= Math.round(count)){
+                            let newPage = page + 1
+                            getData(newPage)
+                        }
+                        dispatch({type: 'REPO_LOADED', payload: response})
+                    })
+        }
+        getData()
     }
 }

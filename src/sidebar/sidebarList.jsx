@@ -3,26 +3,31 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 import SidebarItem from '../template/sidebarItem'
-import {search} from './sidebarActions'
+import {search, completeSearch} from './sidebarActions'
 
 class SidebarList extends Component {
     constructor(props){
         super(props)
         this.state = {
-            repos: []
+            repos: [],
+            total_count: ''
           }
     }
 
     componentDidMount() {
         this.props.search()
+        
     }
 
     render(){
+        console.log('total_count',this.props.repos)
         const renderRows = () => {
+            let i = 1
             const repos = this.props.repos.repos || []
             return repos.map(res => (
                 <li key={res.id} className="nav-item">
                     <SidebarItem 
+                        number={i++}
                         path={`#/repo/`+res.name}
                         name={res.name}
                         stargazers_count={res.stargazers_count}
@@ -52,6 +57,6 @@ class SidebarList extends Component {
     }
 }
 
-const mapStateToProps = state => ({repos: state.repos})
-const mapDispatchToProps = dispatch => bindActionCreators({search}, dispatch)
+const mapStateToProps = state => ({repos: state.repos, total_count: state.total_count})
+const mapDispatchToProps = dispatch => bindActionCreators({search, completeSearch}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarList)
