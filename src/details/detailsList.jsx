@@ -9,23 +9,9 @@ class DetailsList extends Component {
     constructor(props){
         super(props)
         this.state = {
-            details: props.repo,
+            repo: props.repo,
+            details: this.props.details.details,
             commits: []
-        }
-    }
-
-    componentDidMount() {
-        if(this.state.details){
-            this.props.getDetails(this.state.details)
-            this.props.getCommits(this.state.details)
-        }
-    }
-
-    componentWillReceiveProps(newProps){
-        if(newProps){
-            this.state.details = newProps.repo.name
-            this.props.getDetails(this.state.details)
-            this.props.getCommits(this.state.details)
         }
     }
 
@@ -76,5 +62,4 @@ class DetailsList extends Component {
 }
 
 const mapStateToProps = state => ({details: state.details, commits: state.commits})
-const mapDispatchToProps = dispatch => bindActionCreators({getDetails, getCommits}, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsList)
+export default connect(mapStateToProps)(DetailsList)

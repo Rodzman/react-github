@@ -4,12 +4,15 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-    // console.log('reducer', action)
     switch(action.type) {
         case 'DETAILS_LOADED':
-            return {...state, details: action.payload}
+            if(state.details !== action.payload){
+                return {...state, details: action.payload}
+            } else {
+                return state
+            }
         case 'COMMITS_LOADED':
-            if(state.commits){
+            if(state.commits && state.commits !== action.payload && action.page !== 1){
                 return {...state, commits: state.commits.concat(action.payload)}
             } else {
                 return {...state, commits: action.payload}

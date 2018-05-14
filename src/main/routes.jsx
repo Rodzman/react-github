@@ -11,7 +11,7 @@ export default props => (
     <Router history={hashHistory}>
         <Route path='/' component={Dashboard} />
         <Route path="/repo" component={Details}>
-            <Route path='/repo/:id' component={Details}/>
+            <Route path='/repo/:id' component={DetailsList}/>
         </Route>
         <Redirect from='*' to='/' />
     </Router>

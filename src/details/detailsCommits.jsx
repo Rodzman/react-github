@@ -26,7 +26,7 @@ class DetailsCommits extends Component {
             const commits = this.props.details.commits || []
             console.log('commits', commits)
             return commits.map(res => (
-                <li key={res.sha} className="list-group-item text-muted">
+                <li key={res.sha+i} className="list-group-item text-muted">
                     <span className="badge badge-info mr-1 badge-pill">{i++}</span><br/>
                     <b>Autor: </b>{res.commit.author.name} - <b>Data: </b>{res.commit.author.date}<br/>
                     <b>Mensagem: </b>{res.commit.message}<br/>
@@ -49,5 +49,5 @@ class DetailsCommits extends Component {
 
 
 const mapStateToProps = state => ({details: state.details, commits: state.commits})
-const mapDispatchToProps = dispatch => bindActionCreators({getCommits}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({getDetails, getCommits}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsCommits)

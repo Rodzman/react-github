@@ -23,6 +23,6 @@ export const getCommits = (repo, page=1, per_page=20) => {
                 headers: {
                     "Authorization": "Basic cm9kem1hbjpkaWdhbzQ3Njk=",
                 }
-            }).then(resp =>  dispatch({type: 'COMMITS_LOADED', payload: resp.data}))
+            }).then(resp =>  dispatch({type: 'COMMITS_LOADED', payload: resp.data, page: page}))
         }
 }

@@ -3,37 +3,36 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 import DetailsList from './detailsList'
-import { getDetails } from './detailsActions'
+import { getDetails, getCommits } from './detailsActions'
 
-export default class Details extends Component {
+class Details extends Component {
     constructor(props){
         super(props)
         this.state = {
-            details : props.params.id,
-            commits : []
+            repo: props.params.id,
+            details: [],
+            commits: []
         }
+        this.props.getDetails(this.state.repo)
+        this.props.getCommits(this.state.repo)
     }
-
-    // componentDidMount() {
-    //     if(this.state.details){
-    //         this.props.getDetails(this.state.details)
-    //         // this.props.getCommits(this.state.details)
-    //     }
-    // }
 
     componentWillReceiveProps(newProps){
-        // console.log('newProps', newProps.params.id)
-        if(newProps){
-            this.state.details = newProps.params.id
-            // this.props.getDetails(this.state.details)
-            // this.props.getCommits(this.state.details)
+        // console.log('staterepo',this.state.repo)
+        if(newProps && this.state.repo !== newProps.params.id){
+            this.state.repo = newProps.params.id
+            this.props.getDetails(this.state.repo)
+            this.props.getCommits(this.state.repo)
         }
     }
+
     render(){
-        console.log('return', this.props.params.id    )
-        console.log('state', this.state.details    )
          return (
-            <DetailsList repo={this.state.details}/>
+            <DetailsList repo={this.state.repo} />
         )
     }
 }
+
+const mapStateToProps = state => ({details: state.details, commits: state.commits})
+const mapDispatchToProps = dispatch => bindActionCreators({getDetails, getCommits}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Details)
