@@ -1,4 +1,4 @@
-## React Github api fetcher
+## React Github Api Fetcher
 
 App to fetch data from specific organization repository on Github.
 
@@ -15,3 +15,6 @@ Run 'npm run dev' to run dev version
 or
 Run 'npm run production' to run production app.
 
+## Observations
+
+This app was developed as a test.

@@ -2,6 +2,7 @@ import React from 'react'
 import { Router, Route, Redirect, hashHistory, IndexRoute, browserHistory } from 'react-router'
 
 import Details from '../details/details'
+import DetailsList from '../details/detailsList'
 import Teste from '../teste/teste'
 import TesteUnit from '../teste/testeUnit'
 import Dashboard from '../dashboard/dashboard'
